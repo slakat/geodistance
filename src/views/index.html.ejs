@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <form method="post" action="<%= actionPath %>">
+
+        <!-- In case of error, show problem and some advice -->
+        <% if (locals.errors) { %>
+            <div class="errors p-3 mb-4">
+                <% if(errors.failure) { %>
+                <div class="row mb-5">
+                    <div class="error-point mb-2 pb-1 border border-top-0 border-1">
+                        <% if(!errors.origin.success) { %>
+                        <p>No logramos encontrar el lugar de origen con nombre:</p>
+                        <p class="term"><%=(errors.origin.term==='') ?"[Vacío]": errors.origin.term%></p>
+                        <% } %>
+                    </div>
+                    <div class="error-point pb-1 border border-top-0 border-1">
+                        <% if(!errors.destination.success) { %>
+                        <p>No logramos encontrar el lugar de destino con nombre:</p>
+                        <p><%=(errors.destination.term==='') ?"[Vacío]": errors.destination.term%></p>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="row bg-light advice">
+                    <h6>Algunos consejos para buscar nuevamente la dirección:</h6>
+                    <ol>
+                        <li> Revisa si el nombre de la calle puede tener otra versión, por ejemplo: <u>Avenida Libertador Bernardo O'Higgins</u> de Santiago, también se conoce como <u>Alameda</u>.</li>
+                        <li> A veces las calles tienen un nombre digital un tanto distinto, por ejemplo, <u>Arturo Velásquez Quiroga</u> de San Bernardo suele aparecer como <u>Arturo Velásquez</u> a secas.</li>
+                        <li><p> Intenta utilizar un formato más específico, incluyendo comas (,). Por ejemplo:</p>
+                            <p class="bg-dark text-white"><b><i>número de casa, calle, comuna, región, país</i></b></p></li>
+                    </ol>
+                </div>
+                <% } else {%>
+                    <!-- show only if errors are related to db, shouldn't appear anyway -->
+                    <ul>
+                    <% errors.forEach((error) => { %>
+                        <p>Error en ingreso de datos en el formulario:</p>
+                        <li> Error: <%= error.message%> </li>
+                    <% }); %>
+                </ul>
+                <% }%>
+            </div>
+        <% } else { %>
+            <!-- show only if there isn't errors aka first loading-->
+            <div class="p-3 mb-4 intro">
+                <p class="bold">¿Quieres conocer cuánta distancia hay entre dos lugares?</p>
+                <p>Indica cuál es el punto de origen y el punto al que deseas llegar para ayudarte con el cálculo. Atención con los lugares sugeridos, pueden hacer más rápida tu búsqueda.</p>
+            </div>
+        <% } %>
+
+        <!-- Form fields: origin + destiny -->
+        <div class="mb-5">
+            <label for="origin" class="form-label"><i class="fa-solid fa-location-pin"></i> Dirección de origen</label>
+            <input required="required" autoComplete="off" class="form-control" list="originDatalistOptions" name="origin" id="origin" aria-describedby="originHelp" placeholder="Avenida Ramón Picarte 3349, Valdivia, Los Ríos, Chile" type="text">
+            <datalist id="originDatalistOptions">
+                <option value="">
+            </datalist>
+            <div id="originHelp" class="form-text">Ingresa el lugar de partida de tu ruta</div>
+        </div>
+        <div class="mb-4">
+            <label for="destination" class="form-label"><i class="fa-solid fa-location-dot"></i> Dirección de destino</label>
+            <input required="required" autoComplete="off" class="form-control" list="destinationDatalistOptions" name="destination" id="destination" aria-describedby="destinationHelp" placeholder="Avenida Andrés Bello 844, Providencia, Región Metropolitana
+, Chile" type="text">
+            <datalist id="destinationDatalistOptions">
+                <option value="">
+            </datalist>
+            <div id="destinationHelp" class="form-text">Agrega el lugar de llegada de tu ruta</div>
+        </div>
+        <button type="submit" class="btn btn-grad bg-sea">Calcular distancia</button>
+    </form>
+    <a href="<%=queriesPath%>" class="mb-1 text-dark"><p class="dotted-link">o ver historial de búsquedas</p></a>
+</div>

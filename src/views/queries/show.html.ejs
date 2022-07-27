@@ -1,0 +1,49 @@
+<div class="row kms" id="kms">
+<p><%=  query.distance%></p>
+    <span>KILÓMETROS</span>
+</div>
+
+<section>
+    <p>Ésta es la <u>distancia mínima</u> aproximada que debes recorrer, en línea recta, para ir <b>desde el punto de origen hasta tu punto de destino</b>.</p>
+</section>
+
+<section id="route">
+<ul class="timeline">
+    <!-- Item 1 -->
+    <li>
+        <div class="direction-l">
+            <div class="flag-wrapper">
+                <span class="flag">Origen</span>
+            </div>
+            <div class="desc"><%=query.origin%>
+            <span><%=query.startPoint[1] %> | <%=query.startPoint[0] %> </span>
+            </div>
+        </div>
+    </li>
+
+    <!-- Item 2 -->
+    <li>
+        <div class="direction-r">
+            <div class="flag-wrapper">
+                <span class="flag">Destino</span>
+            </div>
+            <div class="desc"><%=query.destination%>
+                <span><%=query.endPoint[1] %> | <%=query.endPoint[0] %> </span>
+            </div>
+        </div>
+    </li>
+
+</ul>
+</section>
+<section id="gmaps">
+<a target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=<%=query.startPoint[1]%> <%=query.startPoint[0]%>&destination=<%=query.endPoint[1]%> <%=query.endPoint[0]%>">
+    <button type="button" class="btn btn-dark">Mira acá tus opciones para el recorrido</button>
+</a>
+</section>
+<section id="menu">
+    <a href="<%=newSearchPath%>">
+        <button type="button" class="btn btn-grad bg-sea">Calcular nueva distancia</button></a>
+    <a href="<%=queriesPath%>">
+        <button type="button" class="btn btn-grad bg-done">Ver historial de rutas</button>
+    </a>
+</section>

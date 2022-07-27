@@ -1,0 +1,83 @@
+
+<table class="table table-striped table-hover queries">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Origen</th>
+        <th scope="col">Destino</th>
+        <th scope="col">Distancia</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% data.forEach(function (query) {%>
+        <tr>
+            <th scope="row"><%= query.id %></th>
+            <td><%=query.origin%>
+                <% if(query.startPoint === null) { %>
+                    <span class="text-danger">(Error: sin coordenadas)</span>
+                <% } %>
+            </td>
+            <td><%=query.destination%>
+                <% if(query.endPoint === null) { %>
+                    <span class="text-danger">(Error: sin coordenadas)</span>
+                <% } %>
+            </td>
+            <td><%=query.distance%></td>
+            <td><%if(query.distance !== null) {%>
+                <a href="<%=queryPath(query.id)%>"><button type="button" class="btn btn-dark">Detalles</button></a>
+                <% }%>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+
+
+<% if(pageCount && pageCount > 0){ %>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        <% if(paginate.hasPreviousPages) { %>
+            <li class="page-item">
+                <a class="page-link bg-dark" href=<%=paginate.href(true)%> tabindex="-1" aria-disabled="true">Anterior</a>
+            </li>
+        <% } else { %>
+            <li class="page-item disabled">
+                <span class="page-link bg-dark"  aria-label=t('Previous') tabindex="-1">Anterior</span>
+            </li>
+        <% } %>
+        <% if(pages) { %>
+        <% pages.forEach(function (page) { %>
+            <% if(page.number === 1 && pageCount === 1) { %>
+                <li class="page-item disabled"><span class="page-link bg-light text-dark"><%= page.number %></span></li>
+            <% } else { %>
+                <% if(page.number === currentPage) {%>
+                    <li class="page-item active"><a class="page-link bg-light text-dark" href="<%=page.url%>"><%= page.number %></a></li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link bg-light text-dark" href="<%=page.url%>"><%= page.number %></a></li>
+                <% } %>
+            <% } %>
+        <% }) %>
+        <% } %>
+        <% if(paginate.hasNextPages(pageCount) && fullPages[currentPage]) { %>
+            <li class="page-item">
+                <a class="page-link bg-dark" href="<%=fullPages[currentPage].url%>">Siguiente</a>
+            </li>
+        <% } else { %>
+            <li class="page-item disabled">
+                <span class="page-link bg-dark">Siguiente</span>
+            </li>
+        <% }%>
+</ul>
+</nav>
+
+<% } %>
+
+
+<section id="menu">
+    <a href="<%=newQueryPath%>">
+        <button type="button" class="btn btn-grad bg-sea">Calcular nueva distancia</button>
+    </a>
+</section>
