@@ -41,7 +41,7 @@ router.get('locations-new', '/new', (ctx) => {
 });
 
 router.post('locations-create', '/', async (ctx) => {
-    const location = ctx.orm.user.build(ctx.request.body);
+    const location = ctx.orm.location.build(ctx.request.body);
     try {
         await location.save({ fields: PERMITTED_FIELDS });
         return ctx.redirect(ctx.router.url('index'));

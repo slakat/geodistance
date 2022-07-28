@@ -52,6 +52,8 @@ we can reduce the use of nominatim service with this and use it to refine the da
     
 }
 ```
+The reason why we're not saving the actual name of the place in the nominatim's service is, because sometimes it's not the exact place or even the right one, so can't assume the coordinates are actually the right address that the user's looking for. For that we have to invest time in checking with the user and get their feedback about how the place we answer as coordinates correlates with the address they wrote. So for now, the best we can do is to give the structure to make that process easy and work on the better address-coordinates aligner in a later phase. We can even use the statistics saved from queries and from locations to understand how good nominatim is doing as a service and how we can make this process better.
+
 ## views
 To access the data from the searched places:
 
@@ -92,3 +94,6 @@ Something like this:
 >https://www.liedman.net/leaflet-routing-machine/api/
 
 #### Dockerfile *TBA*
+
+##Challenge's questionnaire
+[➡️ Check the six answers here](https://github.com/slakat/geodistance/blob/master/docs/questions.md)

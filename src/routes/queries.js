@@ -129,6 +129,7 @@ router.post('queries-search','/search', async (ctx) => {
         return await ctx.render('index', {
             errors: error,
             actionPath: ctx.router.url('queries-search'),
+            queriesPath: ctx.router.url('queries'),
         });
     }
 
@@ -154,6 +155,7 @@ router.post('queries-search','/search', async (ctx) => {
         await ctx.render('index', {
             errors: error.errors,
             actionPath: ctx.router.url('queries-search'),
+            queriesPath: ctx.router.url('queries'),
         });
     }
 });
@@ -214,6 +216,7 @@ router.post('query-update', '/:id/update', async (ctx) => {
             query,
             errors: error.errors,
             actionPath: ctx.router.url('queries-search'),
+            queriesPath: ctx.router.url('queries'),
         });
     }
 });

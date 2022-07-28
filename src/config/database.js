@@ -20,13 +20,17 @@ const config = {
     database: 'geodistance',
   },
   production: {
-    username: 'postgres',
-    password: '12345678',
+    username: process.env.USERNAME ||'postgres',
+    password: process.env.PASSWORD || '12345678',
     extend: 'default',
     database: process.env.DB_NAME || 'geodistance',
     dialect: process.env.DB_DIALECT || 'postgres',
+    host: process.env.HOST || '',
     dialectOptions: {
-      ssl: true,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      },
     },
     options: {
       dialect: 'postgres',
